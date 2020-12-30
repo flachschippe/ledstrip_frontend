@@ -12,9 +12,15 @@
         >
           <div v-if="parameter.type == 'integer'">
             <label v-bind:for="name">{{ name }}:</label>
-            <input v-bind:name="name" type="range" v-model="parameter.value" />
+            <input
+              v-bind:name="name"
+              type="range"
+              v-model="parameter.value"
+              v-bind:min="parameter.minimum"
+              v-bind:max="parameter.maximum"
+            />
             <p>
-            {{ parameter.value }}
+              {{ parameter.value }}
             </p>
           </div>
           <div v-if="parameter.type == 'color'">
@@ -31,24 +37,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { LedstripAnimation } from "@/models/Animation";
-import { EventBus } from '@/event-bus.ts';
+import { EventBus } from "@/event-bus.ts";
+import { sendAnimation } from "@/requests";
 
 @Component({
   methods: {
     sendAnimation: function () {
-      fetch("http://ledstripe:8080/animation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          "Access-Control-Request-Headers": "*"
-        },     
-        body: JSON.stringify(this.$props.animation),
-      }).then((response)=>
-      {
-        response.json().then((data)=>{
-          console.log(data.animation_id)
-          EventBus.$emit('animation-started', data.animation_id)
-        })
+      sendAnimation(this.$props.animation).then((response) => {
+        response.json().then((data) => {
+          EventBus.$emit("animation-started", data.animation_id);
+        });
       });
     },
   },

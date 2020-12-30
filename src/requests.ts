@@ -6,6 +6,26 @@ function getBackendUrl(): string
     return process.env.VUE_APP_BACKEND_URL
 }
 
+export function stopAnimation(animationId: number): Promise<Response>
+{
+  return fetch(getBackendUrl() + '/animation/' + animationId, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        }
+      })
+}
+
+export function sendAnimation(animation: LedstripAnimation): Promise<Response>
+{
+  return fetch(getBackendUrl() + '/animation', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8"
+    },     
+    body: JSON.stringify(animation),
+  });
+}
 
 export function getActiveAnimations(): Promise<LedstripAnimation[][]> {
     console.log(getBackendUrl())

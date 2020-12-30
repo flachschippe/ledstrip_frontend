@@ -32,18 +32,12 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { LedstripAnimation } from "../models/Animation";
 import { EventBus } from '@/event-bus.ts';
+import { stopAnimation } from '@/requests'
 
 @Component({
   methods: {
     stopAnimation: function (id) {
-      fetch("http://ledstripe:8080/animation/" + id, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          "Access-Control-Request-Headers": "*"
-        },     
-        body: JSON.stringify(this.$props.animation),
-      }).then(()=>{EventBus.$emit('animation-removed', id)});
+      stopAnimation(id).then(()=>{EventBus.$emit('animation-removed', id)});
     },
   },
 })
