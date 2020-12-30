@@ -28,7 +28,7 @@
             <input type="color" v-model="parameter.value" />
           </div>
         </div>
-        <button v-on:click="sendAnimation">Start</button>
+        <button class="uk-button" v-on:click="sendAnimation"><span uk-icon="play"/></button>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 <template>
-  <ul>
-    <li v-for="animation in animations" :key="animation.id">
+  <div>
+    <div v-for="animation in animations" :key="animation.id">
       <active-animation :animation="animation"/>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
