@@ -1,0 +1,12 @@
+
+.uk-panel-box {
+    padding:15px;
+    background:#fafafa;
+    color:#666;
+    border:1px solid #E5E5E5;
+    border-radius:4px
+}
+
+.uk-panel-box-hover:hover {
+color:#666
+}
