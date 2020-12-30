@@ -1,17 +1,25 @@
 <template>
   <div uk-accordion>
     <div>
-      <a v-bind="animation" class="uk-accordion-title">
+      <div v-bind="animation" class="uk-accordion-title">
         {{ animation.name }}
-      </a>
+      </div>
       <div class="uk-accordion-content">
-        <div
-          v-for="(parameter, name) in animation.parameters"
-          v-bind:value="parameter"
-          v-bind:key="name"
-        >
-          <div v-if="parameter.type == 'integer'">
-            <label v-bind:for="name">{{ name }}:</label>
+        <table class="uk-table uk-table-striped">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+              </tr>
+          </thead>
+          <tr
+            v-for="(parameter, name) in animation.parameters"
+            v-bind:value="parameter"
+            v-bind:key="name">          
+            <td>
+              <label v-bind:for="name">{{ name }}:</label>
+            </td>
+            <td v-if="parameter.type == 'integer'">
             <input
               v-bind:name="name"
               type="range"
@@ -19,15 +27,12 @@
               v-bind:min="parameter.minimum"
               v-bind:max="parameter.maximum"
             />
-            <p>
-              {{ parameter.value }}
-            </p>
-          </div>
-          <div v-if="parameter.type == 'color'">
-            <label for="lname">{{ name }}:</label>
-            <input type="color" v-model="parameter.value" />
-          </div>
-        </div>
+            </td>
+            <td v-if="parameter.type == 'color'">
+              <input type="color" v-model="parameter.value" />
+            </td>
+          </tr>
+        </table>        
         <button class="uk-button" v-on:click="sendAnimation"><span uk-icon="play"/></button>
       </div>
     </div>

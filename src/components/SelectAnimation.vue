@@ -1,9 +1,9 @@
 <template>
-  <ul>
-    <li v-for="animation in animations" :key="animation.name">
+<div>
+    <div v-for="animation in animations" :key="animation.name">
       <animation :animation="animation" v-on:animation-started='animationStarted($event)'/>
-    </li>
-  </ul>
+    </div>
+</div>
 </template>
 
 <script lang="ts">
