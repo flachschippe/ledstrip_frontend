@@ -1,8 +1,17 @@
-import Vue from 'vue'
+import { createApp } from 'vue';
 import App from './App.vue'
+import router from './router'
+import mitt, {Emitter} from 'mitt'
 
-Vue.config.productionTip = false
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+const emitter = mitt();
+const app=createApp(App)
+app.config.globalProperties.emitter = emitter
+app.use(router).mount('#app')
+
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    emitter: Emitter;
+  }
+}

@@ -34,20 +34,22 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { LedstripAnimation } from "../models/Animation";
-import { EventBus } from "@/event-bus.ts";
 import { stopAnimation } from "@/requests";
+import { defineComponent } from 'vue'
 
-@Component({
+export default defineComponent({
+  name: 'ActiveAnimation',
+  props: {
+    animation: LedstripAnimation
+  },
   methods: {
-    stopAnimation: function (id) {
+
+    stopAnimation: function (id: number) {
       stopAnimation(id).then(() => {
-        EventBus.$emit("animation-removed", id);
+        this.emitter.emit("animation-removed", id);
       });
     },
   },
 })
-export default class ActiveAnimation extends Vue {
-  @Prop() private animation!: LedstripAnimation;
-}
 </script>
 

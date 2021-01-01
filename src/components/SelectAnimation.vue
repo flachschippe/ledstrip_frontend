@@ -7,26 +7,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
 import { LedstripAnimation } from '../models/Animation'
 import Animation from '../components/Animation.vue';
+import {defineComponent} from "vue";
+import {PropType} from "@vue/composition-api";
 
-@Component({
+export default defineComponent({
+  name: 'SelectAnimation',
+  props: {
+    animations: {
+      type: Object as PropType<LedstripAnimation[]>
+    }
+  },
   components: {
     Animation
   },
   methods:
   {
-    animationStarted: function(animationId) {
+    animationStarted: function(animationId: number) {
       console.log(animationId)
     }
   },    
 })
-export default class AnimationList extends Vue {
-  @Prop() private animations!: LedstripAnimation[];
-  beforeMount(){
-    console.log(this.animations)
-  }
-}
 </script>
 

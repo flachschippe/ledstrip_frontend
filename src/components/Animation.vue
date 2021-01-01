@@ -40,27 +40,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { LedstripAnimation } from "@/models/Animation";
-import { EventBus } from "@/event-bus.ts";
 import { sendAnimation } from "@/requests";
+import { defineComponent } from 'vue'
+import {LedstripAnimation} from "@/models/Animation";
 
-@Component({
+export default defineComponent({
+  name: 'Animation',
+  props: {
+    animation: LedstripAnimation
+  },
   methods: {
     sendAnimation: function () {
-      sendAnimation(this.$props.animation).then((response) => {
+      sendAnimation(this.$props.animation!).then((response) => {
         response.json().then((data) => {
-          EventBus.$emit("animation-started", data.animation_id);
+          this.emitter.emit("animation-started", data.animation_id);
         });
       });
     },
   },
 })
-export default class Animation extends Vue {
-  @Prop() private animation!: LedstripAnimation;
-  beforeMount() {
-    console.log(this);
-  }
-}
+
 </script>
 

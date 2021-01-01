@@ -15,39 +15,43 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import Animation from "@/components/Animation.vue";
 import AnimationList from "@/components/AnimationList.vue";
 import SelectAnimation from "@/components/SelectAnimation.vue";
-import { EventBus } from "@/event-bus.ts";
 import * as Requests from "@/requests.ts"
+import { defineComponent } from 'vue'
+import {LedstripAnimation} from "@/models/Animation";
+import {Handler} from 'mitt'
 
-
-@Component({
+export default defineComponent({
+  name: 'App',
   components: {
-    Animation,
     AnimationList,
     SelectAnimation,
   },
   data() {
     return {
-      availableAnimations: [],
-      activeAnimations: [],
+      availableAnimations: [] as LedstripAnimation[],
+      activeAnimations: [] as LedstripAnimation[],
     };
   },
   methods: {
-    animationStarted: function (animationId) {
+    animationStarted: function (animationId: number) {
       console.log(animationId);
     },
   },
-  created() {
-    EventBus.$on(["animation-started", "animation-removed"], (animationId: number) => {
+  created: function () {
 
-    Requests.getActiveAnimations().then((animations)=>{
-      this.$data.availableAnimations = animations[0]
-      this.$data.activeAnimations = animations[1]
-    })
-    });
+    const func = (animationId: number) => {
+
+      Requests.getActiveAnimations().then((animations) => {
+        this.$data.availableAnimations = animations[0]
+        this.$data.activeAnimations = animations[1]
+      })
+    };
+
+    this.emitter.on('animation-started', func as Handler<number>)
+    this.emitter.on("animation-removed", func as Handler<number>)
   },
   mounted() {
     Requests.getActiveAnimations().then((animations)=>{
@@ -57,7 +61,6 @@ import * as Requests from "@/requests.ts"
 
   },
 })
-export default class App extends Vue {}
 
 
 </script>
