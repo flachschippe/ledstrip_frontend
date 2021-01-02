@@ -17,10 +17,10 @@
             <td>
               <label v-bind:for="name">{{ name }}:</label>
             </td>
-            <td v-if="parameter.type == 'integer'">
+            <td v-if="parameter.type === 'integer'">
               {{parameter.value}}
             </td>
-            <td v-if="parameter.type == 'color'">
+            <td v-if="parameter.type === 'color'">
               <svg height="10" width="10">
                 <rect width="10" height="10" stroke="black" stroke-width="1" v-bind:fill="parameter.value" />
               </svg> 
@@ -32,8 +32,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { LedstripAnimation } from "../models/Animation";
+import { LedstripAnimation } from "@/models/Animation";
 import { stopAnimation } from "@/requests";
 import { defineComponent } from 'vue'
 

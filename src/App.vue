@@ -2,12 +2,13 @@
   <div class="uk-container">
     <div class="uk-grid">
       <div class="uk-width-1-2">
+        <span class="uk-text-large">Available Animations</span>
         <select-animation
           :animations="availableAnimations"
-          v-on:animation-started="animationStarted($event)"
         />
       </div>
       <div class="uk-width-1-2">
+        <span class="uk-text-large">Active Animations</span>
         <animation-list :animations="activeAnimations" />
       </div>
     </div>
@@ -15,7 +16,6 @@
 </template>
 
 <script lang="ts">
-import Animation from "@/components/Animation.vue";
 import AnimationList from "@/components/AnimationList.vue";
 import SelectAnimation from "@/components/SelectAnimation.vue";
 import * as Requests from "@/requests.ts"
@@ -34,11 +34,6 @@ export default defineComponent({
       availableAnimations: [] as LedstripAnimation[],
       activeAnimations: [] as LedstripAnimation[],
     };
-  },
-  methods: {
-    animationStarted: function (animationId: number) {
-      console.log(animationId);
-    },
   },
   created: function () {
 
