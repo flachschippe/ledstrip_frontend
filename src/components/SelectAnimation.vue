@@ -3,7 +3,7 @@
     <div v-for="animation in animations" :key="animation.name">
 
       <div class="uk-accordion-title">
-        <h3>{{ animation.name }}</h3>
+        <span>{{ animation.name }}</span>
         <button class="uk-button uk-button-small" @click.stop="sendAnimation(animation)"><span uk-icon="play"/></button>
       </div>
 
