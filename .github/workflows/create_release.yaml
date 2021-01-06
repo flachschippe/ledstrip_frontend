@@ -25,7 +25,7 @@ jobs:
       - name: Compile build
         run: npm run build
       - name: Pack binaries
-        run: cd dist && zip -r ledstrip-frontend.zip *
+        run: cd dist && zip -r ../ledstrip-frontend.zip *
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
