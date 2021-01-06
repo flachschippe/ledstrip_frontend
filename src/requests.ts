@@ -3,7 +3,7 @@ import {Parameter} from "@/models/Parameter";
 
 function getBackendUrl(): string {
     console.log(process.env)
-    return process.env.VUE_APP_BACKEND_URL
+    return process.env.VUE_APP_BACKEND_URL.replace('_HOSTNAME_', window.location.hostname)
 }
 
 export function stopAnimation(animationId: number): Promise<Response> {
