@@ -23,9 +23,9 @@ jobs:
         run: npm install
 
       - name: Compile build
-        run: |
-          - npm run build
-          - zip -r ledstrip-frontend_${{ github.ref }}.zip dist          
+        run: npm run build
+      - name: Pack binaries
+        run: zip -r ledstrip-frontend_${{ github.ref }}.zip dist          
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
