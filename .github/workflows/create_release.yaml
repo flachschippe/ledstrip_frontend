@@ -14,6 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build project # This would actually build your project, using zip for an example artifact
+
+        uses: actions/setup-node@v1.2.0
+        with:
+          node-version: '10.x'
+    
+      - name: Install dependencies
+        run: npm install
+
+      - name: Compile build
         run: |
           - npm run build
           - zip -r ledstrip-frontend_${{ github.ref }}.zip dist          
