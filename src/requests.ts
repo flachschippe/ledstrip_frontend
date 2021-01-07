@@ -2,8 +2,16 @@ import {LedstripAnimation} from "@/models/Animation"
 import {Parameter} from "@/models/Parameter";
 
 function getBackendUrl(): string {
-    console.log(process.env)
-    return process.env.VUE_APP_BACKEND_URL.replace('_HOSTNAME_', window.location.hostname)
+    let port = ""
+    if(!(location.port === "80" && location.protocol === "http:" ||
+        location.port === "443" && location.protocol === "https:"))
+    {
+        port = location.port
+    }
+    return process.env.VUE_APP_BACKEND_URL
+        .replace('_PROTOCOL_', window.location.protocol)
+        .replace('_HOSTNAME_', window.location.hostname)
+        .replace('_PORT_', ":" + port)
 }
 
 export function stopAnimation(animationId: number): Promise<Response> {
